@@ -9,23 +9,36 @@
     </v-app-bar>
 
     <v-content>
-      <!-- <HelloWorld/> -->
+      <Search :headers="headers"/>
+      <Favourites :headers="headers"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld';
+import Search from './components/Search';
+import Favourites from './components/Favourites';
 
 export default {
   name: 'App',
 
   components: {
-    // HelloWorld,
+    Search,
+    Favourites
   },
 
   data: () => ({
-    //
+    headers: [
+        {
+          text: 'Giocatori',
+          align: 'center',
+          value: 'player',
+        },
+        { text: 'Gazzetta', value: 'gazzetta' },
+        { text: 'Corriere', value: 'corriere' },
+        { text: 'Sky', value: 'sky' },
+        { text: 'Fantacalcio', value: 'fantacalcio' }
+      ]
   }),
 };
 </script>
