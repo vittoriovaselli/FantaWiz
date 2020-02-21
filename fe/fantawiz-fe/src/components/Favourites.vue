@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h2>Favourites</h2>
+    
     <v-data-table
       :headers="headers"
       :items="players"

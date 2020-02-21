@@ -29,16 +29,16 @@ export default {
 
   data: () => ({
     headers: [
-        {
-          text: 'Giocatori',
-          align: 'center',
-          value: 'player',
-        },
-        { text: 'Gazzetta', value: 'gazzetta' },
-        { text: 'Corriere', value: 'corriere' },
-        { text: 'Sky', value: 'sky' },
-        { text: 'Fantacalcio', value: 'fantacalcio' }
-      ]
+      {
+        text: 'Giocatori',
+        align: 'center',
+        value: 'player',
+      },
+      { text: 'Gazzetta', value: 'gazzetta' },
+      { text: 'Corriere', value: 'corriere' },
+      { text: 'Sky', value: 'sky' },
+      { text: 'Fantacalcio', value: 'fantacalcio' }
+    ]
   }),
 };
 </script>
