@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using FantaWizBE.Models;
+using FantaWizBE.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FantaWiz_BE.Controllers
@@ -10,11 +13,21 @@ namespace FantaWiz_BE.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private IHttpClientFactory _httpClientFactory;
+
+        public ValuesController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<IEnumerable<Player>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var players = new Dictionary<string, Player>();
+            var gazzettaScraper = new GazzettaScraper(players);
+
+            return (await gazzettaScraper.Get(_httpClientFactory)).Values;
         }
 
         // GET api/values/5
