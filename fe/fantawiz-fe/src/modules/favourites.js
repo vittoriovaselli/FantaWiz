@@ -2,30 +2,19 @@ const state = {
   players: [
     {
       player: 'Petagna',
-      gazzetta: 159,
-      corriere: 6.0,
-      sky: 24,
-      fantacalcio: 4.0,
+      prossimaPartita: 'juve-spal',
+      gazzetta: 0,
+      corriere: 0,
+      sky: 0,
+      fantacalcio: 0,
     },
     {
-      player: 'Petagna',
-      gazzetta: 159,
-      corriere: 6.0,
-      sky: 24,
-      fantacalcio: 4.0,
-    },
-    {
-      player: 'Petagna',
-      gazzetta: 159,
-      corriere: 6.0,
-      sky: 24,
-      fantacalcio: 4.0,
-    },{
-      player: 'Petagna',
-      gazzetta: 159,
-      corriere: 6.0,
-      sky: 24,
-      fantacalcio: 4.0,
+      player: 'Zaniolo',
+      prossimaPartita: 'fiorentina-roma',
+      gazzetta: 3,
+      corriere: 3,
+      sky: 3,
+      fantacalcio: 3,
     }
   ],
 };

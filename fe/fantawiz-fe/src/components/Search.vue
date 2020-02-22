@@ -1,28 +1,17 @@
 <template>
-  <v-container>
-    <h2>Search</h2>
-
-    <v-card outlined>
-      <v-card-title>
-        Search Player
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-    </v-card>
+  <v-container v-if="search!=''">
+    <h2>Risultati della Ricerca per: 
+      <v-chip close color="secondary" 
+      @click:close="resetReserch"
+      >{{search}}</v-chip></h2>
 
     <v-data-table
       :headers="headers"
       :items="players"
-      :items-per-page="5"
-      class="elevation-1"
       :search="search"
-    ></v-data-table>
+      class="elevation-1"
+    >
+    </v-data-table>
   </v-container>
 </template>
 
@@ -32,15 +21,22 @@
   export default {
     name: 'Search',
     props: [
-      'headers'
+      'headers',
+      'search'
     ],
 
     data: () => ({
-      search: ''
+      //
     }),
 
     computed: mapState({
       players: state => state.searches.players,
-    })
+    }),
+
+    methods: {
+      resetReserch(){
+        this.$emit('close');
+      }
+    }
   }
 </script>

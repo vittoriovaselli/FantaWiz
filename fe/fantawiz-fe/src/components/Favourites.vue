@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2>Favourites</h2>
+    <h2>Preferiti</h2>
     
     <v-data-table
       :headers="headers"
@@ -17,7 +17,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'Favourites',
   props: [
-      'headers'
+    'headers'
   ],
   data: () => ({
   }),
