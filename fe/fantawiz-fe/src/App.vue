@@ -5,7 +5,7 @@
       color="primary"
       dark
     >
-      <v-toolbar-title><h2>FantaWiz</h2></v-toolbar-title>
+      <v-toolbar-title>FantaWiz</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -60,11 +60,12 @@ export default {
         align: 'center',
         value: 'player'
       },
-      { text: 'Prossima partita', value: 'prossimaPartita' },
-      { text: 'Gazzetta', value: 'gazzetta' },
-      { text: 'Corriere', value: 'corriere' },
-      { text: 'Sky', value: 'sky' },
-      { text: 'Fantacalcio', value: 'fantacalcio' }
+      { text: 'Prossima partita', value: 'prossimaPartita', filterable: false },
+      { text: 'Gazzetta', value: 'gazzetta', filterable: false },
+      { text: 'Corriere', value: 'corriere', filterable: false },
+      { text: 'Sky', value: 'sky', filterable: false },
+      { text: 'Fantacalcio', value: 'fantacalcio', filterable: false  },
+      { text: 'Azione', value: 'azione', filterable: false  }
     ],
     search: '',
   }),
