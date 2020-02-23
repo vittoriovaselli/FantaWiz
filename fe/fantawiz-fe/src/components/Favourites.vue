@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2>Preferiti</h2>
+    <h2>I miei giocatori</h2>
     
     <v-data-table
       :headers="headers"
@@ -22,12 +22,15 @@
       <template v-slot:item.fantacalcio="{ item }">
         <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.fantacalcio])"/>
       </template>
+      <template v-slot:item.azione="{item}">
+        <v-btn color="primary" @click="removeFromFavourites(item)"><v-icon>mdi-delete</v-icon> Rimuovi dai miei giocatori</v-btn>
+      </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Favourites',
@@ -41,6 +44,12 @@ export default {
     players: state => state.favourites.players,
     status: state => state.common.status,
   }),
+
+  methods: {
+    ...mapMutations([
+      'removeFromFavourites'
+    ])
+  }
 }
 
 </script>

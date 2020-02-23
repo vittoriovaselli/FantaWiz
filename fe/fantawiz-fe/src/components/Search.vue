@@ -24,7 +24,11 @@
       <template v-slot:item.fantacalcio="{ item }">
         <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.fantacalcio])"/>
       </template>
+      <template v-slot:item.azione>
+        <v-btn color="primary"><v-icon>mdi-plus</v-icon>Aggiungi ai miei giocatori</v-btn>
+      </template>
     </v-data-table>
+    
   </v-container>
 </template>
 

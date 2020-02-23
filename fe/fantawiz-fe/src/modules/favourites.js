@@ -11,10 +11,10 @@ const state = {
     {
       player: 'Zaniolo',
       prossimaPartita: 'fiorentina-roma',
-      gazzetta: 3,
-      corriere: 3,
-      sky: 3,
-      fantacalcio: 3,
+      gazzetta: 2,
+      corriere: 2,
+      sky: 2,
+      fantacalcio: 2,
     }
   ],
 };
@@ -24,7 +24,9 @@ const getters = {
 };
 
 const mutations = {
-
+  removeFromFavourites (state, player) {
+    state.players.splice(state.players.indexOf(player),1);
+  }
 };
 
 const actions = {

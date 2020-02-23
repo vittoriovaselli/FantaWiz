@@ -65,7 +65,7 @@ export default {
       { text: 'Corriere', value: 'corriere', filterable: false },
       { text: 'Sky', value: 'sky', filterable: false },
       { text: 'Fantacalcio', value: 'fantacalcio', filterable: false  },
-      { text: 'Azione', value: 'azione', filterable: false  }
+      { text: '', value: 'azione', filterable: false, sortable: false  }
     ],
     search: '',
   }),
