@@ -10,17 +10,17 @@
     >
      <template v-slot:item.gazzetta="{ item }">
         <v-spacer></v-spacer>
-        <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.gazzetta])"/>
+        <v-img @click="openLegend(item.gazzetta)" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.gazzetta])"/>
         <v-spacer></v-spacer>
       </template>
       <template v-slot:item.corriere="{ item }">
-        <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.corriere])"/>
+        <v-img @click="openLegend(item.corriere)" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.corriere])"/>
       </template>
       <template v-slot:item.sky="{ item }">
-        <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.sky])"/>
+        <v-img @click="openLegend(item.sky)" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.sky])"/>
       </template>
       <template v-slot:item.fantacalcio="{ item }">
-        <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.fantacalcio])"/>
+        <v-img @click="openLegend(item.fantacalcio)" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.fantacalcio])"/>
       </template>
       <template v-slot:item.azione="{item}">
         <v-btn color="primary" @click="removeFromFavourites(item)"><v-icon>mdi-delete</v-icon> Rimuovi dai miei giocatori</v-btn>
@@ -40,6 +40,7 @@ export default {
   ],
 
   data: () => ({
+
   }),
 
   computed: mapState({
@@ -50,8 +51,14 @@ export default {
   methods: {
     ...mapMutations([
       'removeFromFavourites',
-      'getMyPlayers'
-    ])
+      'getMyPlayers',
+      'toggleOverlay',
+      'setIcon'
+    ]),
+    openLegend(icon){
+      this.setIcon(icon);
+      this.toggleOverlay();
+    }
   },
 
   created: function () {

@@ -19,6 +19,7 @@
     <v-content>
       <Search :headers="headers" :search="search" @close="resetReserch"/>
       <Favourites :headers="headers"/>
+      <IconLegend/>
     </v-content>
     <v-footer color="primary" id="footer">
       <div id="credits">
@@ -44,13 +45,15 @@
 <script>
 import Search from './components/Search';
 import Favourites from './components/Favourites';
+import IconLegend from './components/IconLegend';
 
 export default {
   name: 'App',
 
   components: {
     Search,
-    Favourites
+    Favourites,
+    IconLegend
   },
 
   data: () => ({
@@ -124,6 +127,7 @@ h2{
 
 .v-image{
   border-radius: 50% !important;
+  cursor: pointer;
 }
 
 </style>
