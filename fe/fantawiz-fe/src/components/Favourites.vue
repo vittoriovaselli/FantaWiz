@@ -34,9 +34,11 @@ import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Favourites',
+  
   props: [
     'headers'
   ],
+
   data: () => ({
   }),
 
@@ -47,8 +49,13 @@ export default {
 
   methods: {
     ...mapMutations([
-      'removeFromFavourites'
+      'removeFromFavourites',
+      'getMyPlayers'
     ])
+  },
+
+  created: function () {
+    this.getMyPlayers();
   }
 }
 
