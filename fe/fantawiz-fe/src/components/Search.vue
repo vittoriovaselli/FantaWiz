@@ -24,8 +24,8 @@
       <template v-slot:item.fantacalcio="{ item }">
         <v-img width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[item.fantacalcio])"/>
       </template>
-      <template v-slot:item.azione>
-        <v-btn color="primary"><v-icon>mdi-plus</v-icon>Aggiungi ai miei giocatori</v-btn>
+      <template v-slot:item.azione="{item}">
+        <v-btn color="primary" @click="addToFavourites(item)"><v-icon>mdi-plus</v-icon>Aggiungi ai miei giocatori</v-btn>
       </template>
     </v-data-table>
     
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapMutations } from 'vuex';
 
   export default {
     name: 'Search',
@@ -54,7 +54,10 @@
     methods: {
       resetReserch(){
         this.$emit('close');
-      }
+      },
+      ...mapMutations([
+        'addToFavourites'
+      ])
     }
   }
 </script>

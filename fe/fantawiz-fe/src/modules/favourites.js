@@ -26,6 +26,10 @@ const getters = {
 const mutations = {
   removeFromFavourites (state, player) {
     state.players.splice(state.players.indexOf(player),1);
+  },
+
+  addToFavourites (state, player) {
+    state.players.push(player);
   }
 };
 
