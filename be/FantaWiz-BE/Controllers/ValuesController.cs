@@ -25,9 +25,12 @@ namespace FantaWiz_BE.Controllers
         public async Task<IEnumerable<Player>> Get()
         {
             var players = new Dictionary<string, Player>();
-            var gazzettaScraper = new GazzettaScraper(players);
 
+            var gazzettaScraper = new GazzettaScraper(players);
             players = await gazzettaScraper.Get(_httpClientFactory);
+
+            var fantacalcioScraper = new FantacalcioScraper(players);
+            players = await fantacalcioScraper.Get(_httpClientFactory);
 
             return players.Values;
         }
