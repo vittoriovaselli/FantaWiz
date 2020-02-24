@@ -11,13 +11,10 @@ namespace FantaWizBE.Services
 {
     public class GazzettaScraper: BaseScraper
     {
-        private  HtmlDocument pageDocument;
-        private  Dictionary<string, Player> _players;
-
         public GazzettaScraper(Dictionary<string, Player> players):base (players)
         {
-            _players = players;
-            base._source = Source.GazzettaDelloSport;
+            _source = Source.GazzettaDelloSport;
+            
         }
 
         
@@ -25,57 +22,48 @@ namespace FantaWizBE.Services
         public override async  Task<Dictionary<string, Player>> Get(IHttpClientFactory httpClientFactory)
         {
             //get data from LaGazzetta
-            var client = httpClientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://www.gazzetta.it/Calcio/prob_form/");
-            var response = await client.SendAsync(request);
+            await SendHttpRequest(httpClientFactory, "https://www.gazzetta.it/Calcio/prob_form/");
 
-            if (response.IsSuccessStatusCode)
-            {
-                //parse data from LaGazzetta
-                string htmlContent = await response.Content.ReadAsStringAsync();
-                pageDocument = new HtmlDocument();
-                pageDocument.LoadHtml(htmlContent);
+            string[] teams = GetTeams();
 
-                string[] teams = GetTeams();
+            GetStartingPlayers(teams);
 
-                GetStartingPlayers(teams);
 
-                
-                var homeData = pageDocument
-                    .DocumentNode
-                    .SelectNodes($"//div[contains(@class, 'homeDetails')]//p")
-                    .Select(x => x.InnerText)
-                    .ToArray();
+            var homeData = pageDocument
+                .DocumentNode
+                .SelectNodes($"//div[contains(@class, 'homeDetails')]//p")
+                .Select(x => x.InnerText)
+                .ToArray();
 
-                var awayData = pageDocument
-                    .DocumentNode
-                    .SelectNodes($"//div[contains(@class, 'awayDetails')]//p")
-                    .Select(x => x.InnerText)
-                    .ToArray();
+            var awayData = pageDocument
+                .DocumentNode
+                .SelectNodes($"//div[contains(@class, 'awayDetails')]//p")
+                .Select(x => x.InnerText)
+                .ToArray();
 
-                //get home teams reserves
-                GetReserves(teams, 0,homeData);
+            //get home teams reserves
+            GetReserves(teams, 0, homeData);
 
-                //get home teams reserves
-                GetReserves(teams, 1, awayData);
+            //get home teams reserves
+            GetReserves(teams, 1, awayData);
 
-                //get home teams disqualified
-                GetDisqualifiedPlayers(teams, 0, homeData);
+            //get home teams disqualified
+            GetDisqualifiedPlayers(teams, 0, homeData);
 
-                //get away teams disqualified
-                GetDisqualifiedPlayers(teams, 1, awayData);
+            //get away teams disqualified
+            GetDisqualifiedPlayers(teams, 1, awayData);
 
-                //get home teams injured
-                GetInjuredPlayers(teams, 0, homeData);
+            //get home teams injured
+            GetInjuredPlayers(teams, 0, homeData);
 
-                //get away teams injured
-                GetInjuredPlayers(teams, 1, awayData);
+            //get away teams injured
+            GetInjuredPlayers(teams, 1, awayData);
 
-                Console.WriteLine("");
+            Console.WriteLine("");
 
-            }
             return _players;
-        }
+        }               
+
 
         private  void GetInjuredPlayers(string[] teams, int teamIndex, string[] data)
         {

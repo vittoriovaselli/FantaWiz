@@ -1,4 +1,5 @@
 ﻿using FantaWizBE.Models;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ namespace FantaWizBE.Services
 {
     public class BaseScraper
     {
-        private Dictionary<string, Player> _players;
+        internal Dictionary<string, Player> _players;
         internal Source _source;
+        internal HtmlDocument pageDocument;
 
         public BaseScraper(Dictionary<string,Player> players)
         {
@@ -55,6 +57,21 @@ namespace FantaWizBE.Services
         private static string TeamVersus(string[] teams, int teamIndex)
         {
             return teamIndex % 2 == 0 ? teams[teamIndex + 1] : teams[teamIndex - 1];
+        }
+
+        internal async Task SendHttpRequest(IHttpClientFactory httpClientFactory, string Url)
+        {
+            var client = httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, Url);
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                //parse data from LaGazzetta
+                string htmlContent = await response.Content.ReadAsStringAsync();
+                pageDocument = new HtmlDocument();
+                pageDocument.LoadHtml(htmlContent);
+            }
         }
 
     }
