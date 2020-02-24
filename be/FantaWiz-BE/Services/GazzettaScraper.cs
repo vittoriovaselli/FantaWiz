@@ -61,6 +61,8 @@ namespace FantaWizBE.Services
 
             Console.WriteLine("");
 
+            CheckErrors();
+
             return _players;
         }               
 

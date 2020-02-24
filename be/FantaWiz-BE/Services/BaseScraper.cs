@@ -74,5 +74,15 @@ namespace FantaWizBE.Services
             }
         }
 
+        internal void CheckErrors()
+        {
+            //if a player has more than "number of sources" statuses there is an error
+            //remove all players from dictionary
+            if (_players.FirstOrDefault().Value.Status.Count > Enum.GetValues(typeof(Source)).Length)
+            {
+                _players =  new Dictionary<string, Player>();
+            }
+        }
+
     }
 }

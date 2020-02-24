@@ -27,7 +27,9 @@ namespace FantaWiz_BE.Controllers
             var players = new Dictionary<string, Player>();
             var gazzettaScraper = new GazzettaScraper(players);
 
-            return (await gazzettaScraper.Get(_httpClientFactory)).Values;
+            players = await gazzettaScraper.Get(_httpClientFactory);
+
+            return players.Values;
         }
 
         // GET api/values/5
