@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,7 +23,63 @@ namespace FantaWizBE.Services
 
             GetStartingAndReserves(teams);
 
+            GetDisqualifiedAndInjuredPlayers(teams);
+
             return _players;
+        }
+
+        private void GetDisqualifiedAndInjuredPlayers(string[] teams)
+        {
+            var groups = pageDocument
+                .DocumentNode
+                .SelectNodes("//div[contains(@class, 'pgroup')]")
+                .ToArray();
+
+            var teamIndex = 0;
+            var found = 0;
+            foreach(var group in groups)
+            {
+                if (group.InnerText.Contains("INDISPONIBILI"))
+                {
+                    var players = group
+                        .SelectNodes(".//span[contains(@class, 'bold')]")
+                        .Select(x => x.InnerText)
+                        .ToArray();
+                    for(int i=1; i < players.Length; i++)
+                    {
+                        var name = players[i].Split(':', '&')[0].ToUpper();
+                        if (!name.Contains('-'))
+                        {
+                            AddPlayer(teams, teamIndex, name, PlayerStatus.Injured);
+                        }
+                    }
+                    found++;
+                }
+
+                if (group.InnerText.Contains("SQUALIFICATI"))
+                {
+                    var players = group
+                        .SelectNodes(".//p[contains(@class, 'txtmedium top10 bold')]")
+                        .Select(x => x.InnerText)
+                        .FirstOrDefault();
+                    if (!players.Contains('-'))
+                    {
+                        var playerArray = players.Split(',');
+                        foreach(var player in playerArray)
+                        {
+                            AddPlayer(teams, teamIndex, player.ToUpper(), PlayerStatus.Disqualified);
+                        }
+                    }
+
+                    found++;
+                }
+                if (found == 2)
+                {
+                    teamIndex++;
+                    found = 0;
+                }
+            }
+
         }
 
         private void GetStartingAndReserves(string[] teams)

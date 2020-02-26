@@ -32,7 +32,7 @@ namespace FantaWizBE.Services
                 _players[name].Status.Add(new Status
                 {
                     PlayerStatus = playerStatus,
-                    Source = Source.GazzettaDelloSport
+                    Source = _source
                 });
             }
             else

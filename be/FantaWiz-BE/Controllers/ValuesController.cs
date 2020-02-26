@@ -26,8 +26,8 @@ namespace FantaWiz_BE.Controllers
         {
             var players = new Dictionary<string, Player>();
 
-            //var gazzettaScraper = new GazzettaScraper(players);
-            //players = await gazzettaScraper.Get(_httpClientFactory);
+            var gazzettaScraper = new GazzettaScraper(players);
+            players = await gazzettaScraper.Get(_httpClientFactory);
 
             var fantacalcioScraper = new FantacalcioScraper(players);
             players = await fantacalcioScraper.Get(_httpClientFactory);
