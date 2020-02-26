@@ -12,5 +12,7 @@ namespace FantaWizBE.Models
         public string Versus { get; set; }
         public List<Status> Status { get; set; }
         public bool IsHome { get; set; }
+
+        
     }
 }

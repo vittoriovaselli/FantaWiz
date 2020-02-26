@@ -10,12 +10,12 @@ namespace FantaWizBE.Services
 {
     public class FantacalcioScraper : BaseScraper
     {
-        public FantacalcioScraper(Dictionary<string, Player> players) : base(players)
+        public FantacalcioScraper(HashSet<Player> players) : base(players)
         {
             _source = Source.FantacalcioIt;
         }
 
-        public async override Task<Dictionary<string, Player>> Get(IHttpClientFactory httpClientFactory)
+        public async override Task<HashSet<Player>> Get(IHttpClientFactory httpClientFactory)
         {
             await SendHttpRequest(httpClientFactory, "https://www.fantacalcio.it/probabili-formazioni-serie-a");
 

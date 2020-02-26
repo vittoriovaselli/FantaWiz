@@ -24,7 +24,7 @@ namespace FantaWiz_BE.Controllers
         [HttpGet]
         public async Task<IEnumerable<Player>> Get()
         {
-            var players = new Dictionary<string, Player>();
+            var players = new HashSet<Player>(new PlayersComparer());
 
             var gazzettaScraper = new GazzettaScraper(players);
             players = await gazzettaScraper.Get(_httpClientFactory);
@@ -32,7 +32,7 @@ namespace FantaWiz_BE.Controllers
             var fantacalcioScraper = new FantacalcioScraper(players);
             players = await fantacalcioScraper.Get(_httpClientFactory);
 
-            return players.Values;
+            return players;
         }
 
         // GET api/values/5

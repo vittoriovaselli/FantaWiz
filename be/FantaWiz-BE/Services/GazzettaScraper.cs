@@ -11,7 +11,7 @@ namespace FantaWizBE.Services
 {
     public class GazzettaScraper: BaseScraper
     {
-        public GazzettaScraper(Dictionary<string, Player> players):base (players)
+        public GazzettaScraper(HashSet<Player> players):base (players)
         {
             _source = Source.GazzettaDelloSport;
             
@@ -19,7 +19,7 @@ namespace FantaWizBE.Services
 
         
 
-        public override async  Task<Dictionary<string, Player>> Get(IHttpClientFactory httpClientFactory)
+        public override async  Task<HashSet<Player>> Get(IHttpClientFactory httpClientFactory)
         {
             //get data from LaGazzetta
             await SendHttpRequest(httpClientFactory, "https://www.gazzetta.it/Calcio/prob_form/");

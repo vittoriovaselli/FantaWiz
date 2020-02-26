@@ -10,16 +10,16 @@ namespace FantaWizBE.Services
 {
     public class BaseScraper
     {
-        internal Dictionary<string, Player> _players;
+        internal HashSet<Player> _players;
         internal Source _source;
         internal HtmlDocument pageDocument;
 
-        public BaseScraper(Dictionary<string,Player> players)
+        public BaseScraper(HashSet<Player> players)
         {
             _players = players;
         }
 
-        public virtual async Task<Dictionary<string, Player>> Get(IHttpClientFactory httpClientFactory)
+        public virtual async Task<HashSet<Player>> Get(IHttpClientFactory httpClientFactory)
         {
             throw new NotImplementedException(); 
         }
@@ -27,9 +27,28 @@ namespace FantaWizBE.Services
 
         public void AddPlayer(string[] teams, int teamIndex, string name, PlayerStatus playerStatus)
         {
-            if (_players.ContainsKey(name))
+            name = name.Trim();
+
+            Player player = new Player
             {
-                _players[name].Status.Add(new Status
+                Name = name,
+                IsHome = teamIndex % 2 == 0,
+                Team = teams[teamIndex],
+                Versus = TeamVersus(teams, teamIndex),
+                Status = new List<Status>()
+                {
+                    new Status{
+                        PlayerStatus = playerStatus,
+                        Source = _source
+                    }
+                }
+            };
+
+            if (_players.Contains(player))
+            {
+                _players.TryGetValue(player, out Player selectedPlayer);
+
+                selectedPlayer.Status.Add(new Status
                 {
                     PlayerStatus = playerStatus,
                     Source = _source
@@ -37,20 +56,7 @@ namespace FantaWizBE.Services
             }
             else
             {
-                _players.Add(name, new Player
-                {
-                    Name = name,
-                    IsHome = teamIndex % 2 == 0,
-                    Team = teams[teamIndex],
-                    Versus = TeamVersus(teams, teamIndex),
-                    Status = new List<Status>()
-                        {
-                            new Status{
-                                PlayerStatus = playerStatus,
-                                Source = _source
-                            }
-                        }
-                });
+                _players.Add(player);
             }
         }
 
@@ -78,9 +84,9 @@ namespace FantaWizBE.Services
         {
             //if a player has more than "number of sources" statuses there is an error
             //remove all players from dictionary
-            if (_players.FirstOrDefault().Value.Status.Count > Enum.GetValues(typeof(Source)).Length)
+            if (_players.FirstOrDefault().Status.Count > Enum.GetValues(typeof(Source)).Length)
             {
-                _players =  new Dictionary<string, Player>();
+                _players =  new HashSet<Player>();
             }
         }
 
