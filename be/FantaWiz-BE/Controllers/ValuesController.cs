@@ -32,6 +32,9 @@ namespace FantaWiz_BE.Controllers
             var fantacalcioScraper = new FantacalcioScraper(players);
             players = await fantacalcioScraper.Get(_httpClientFactory);
 
+            var skyScraper = new SkyScraper(players);
+            players = await skyScraper.Get(_httpClientFactory);
+
             return players;
         }
 

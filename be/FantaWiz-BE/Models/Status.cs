@@ -14,7 +14,8 @@ namespace FantaWizBE.Models
     public enum Source
     {
         GazzettaDelloSport,
-        FantacalcioIt
+        FantacalcioIt,
+        Sky
     }
 
     public enum PlayerStatus
