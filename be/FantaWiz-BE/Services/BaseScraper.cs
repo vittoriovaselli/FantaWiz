@@ -29,6 +29,23 @@ namespace FantaWizBE.Services
         {
             name = name.Trim();
 
+            if (name.Contains("&#39;"))
+            {
+                name = name.Replace("&#39;", "'");
+            }
+
+            if (name.Contains("?"))
+            {
+                name  = name.Replace("?", "'");
+            }
+
+            if (name.Contains("’"))
+            {
+                name = name.Replace("’", "'");
+            }
+
+
+
             Player player = new Player
             {
                 Name = name,
