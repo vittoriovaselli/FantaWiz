@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="1">
-    <v-card-title class="text-center">{{player.player}}</v-card-title>
-    <v-card-subtitle class="text-center">{{player.prossimaPartita}}</v-card-subtitle>
+    <v-card-title class="text-center">{{player.name}}</v-card-title>
+    <v-card-subtitle class="text-center">{{player.isHome ? `${player.team}-${player.versus}` : `${player.versus}-${player.team}`  }}</v-card-subtitle>
     <v-divider></v-divider>
     <v-list class="d-flex">
       <v-list-item >
@@ -17,17 +17,17 @@
     <v-list class="d-flex" flat>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.gazzetta)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.gazzetta])"></v-img>
+          <v-img @click="openLegend(player.status[0].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[0].playerStatus])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.sky)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.sky])"></v-img>
+          <v-img @click="openLegend(player.status[1].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[1].playerStatus])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.fantacalcio)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.fantacalcio])"></v-img>
+          <v-img @click="openLegend(player.status[2].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[2].playerStatus])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
     </v-list>
@@ -36,6 +36,8 @@
     </v-card-actions>
   </v-card>
 </template>
+
+
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'

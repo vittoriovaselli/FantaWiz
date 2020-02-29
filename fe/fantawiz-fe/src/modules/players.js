@@ -1,33 +1,85 @@
 const state = {
   players: [
     {
-      player: 'Petagna',
-      prossimaPartita: 'juve-spal',
-      gazzetta: 0,
-      sky: 0,
-      fantacalcio: 0,
+      name: 'Petagna',
+      team: 'spal',
+      versus: 'juve',
+      status: [
+        {
+          source: 0,
+          playerStatus: 0,
+        },
+        {
+          source: 1,
+          playerStatus: 0
+        },
+        {
+          source: 2,
+          playerStatus: 0
+        }
+      ],
+      isHome: true
     },
     {
-      player: 'Ronaldo',
-      prossimaPartita: 'juve-spal',
-      gazzetta: 0,
-      sky: 0,
-      fantacalcio: 1,
+      name: 'Ronaldo',
+      team: 'juve',
+      versus: 'spal',
+      status: [
+        {
+          source: 0,
+          playerStatus: 0,
+        },
+        {
+          source: 1,
+          playerStatus: 0
+        },
+        {
+          source: 2,
+          playerStatus: 1
+        }
+      ],
+      isHome: false
     },
     {
-      player: 'Gomez',
-      prossimaPartita: 'atalanta-sampdoria',
-      gazzetta: 3,
-      sky: 3,
-      fantacalcio: 3,
+      name: 'Gomez',
+      team: 'Atalanta',
+      versus: 'Sampdoria',
+      status: [
+        {
+          source: 0,
+          playerStatus: 3,
+        },
+        {
+          source: 1,
+          playerStatus: 3
+        },
+        {
+          source: 2,
+          playerStatus: 3
+        }
+      ],
+      isHome: true
     },
     {
-      player: 'Zaniolo',
-      prossimaPartita: 'fiorentina-roma',
-      gazzetta: 2,
-      sky: 2,
-      fantacalcio: 2,
-    },
+      name: 'Zaniolo',
+      team: 'roma',
+      versus: 'fiorentina',
+      status: [
+        {
+          source: 0,
+          playerStatus: 2,
+        },
+        {
+          source: 1,
+          playerStatus: 2
+        },
+        {
+          source: 2,
+          playerStatus: 2
+        }
+      ],
+      isHome: false
+    }
   ],
   filteredPlayers: [  ],
   myPlayers: [ ],
@@ -36,7 +88,7 @@ const state = {
 
 const getters = {
   inMyPlayers: (state) => (player) => {
-    return state.myPlayers.find(element => element.player === player.player) ? true : false;
+    return state.myPlayers.find(element => element.name === player.name) ? true : false;
   }
 };
 
@@ -66,7 +118,7 @@ const actions = {
 
     commit('clearSearchTable');
     for(let i=0; i<state.players.length; i++){
-      if(state.players[i].player.toLowerCase().includes(search)){
+      if(state.players[i].name.toLowerCase().includes(search)){
         let player = state.players[i];
         state.filteredPlayers.push(player);
         state.enterPressed = false;

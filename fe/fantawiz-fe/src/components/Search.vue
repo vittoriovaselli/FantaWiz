@@ -9,7 +9,7 @@
         </v-chip>
       </h2>
       <div class="d-flex wrap">
-        <SearchResultPlayer :key="player.player" v-for="player in players" :player="player"/>
+        <SearchResultPlayer :key="player.name + player.team + player.status[0].playerStatus" v-for="player in players" :player="player"/>
       </div>
 
       <h2 v-if="players.length == 0 && enterPressed">Nessun risultato trovato per:  
@@ -74,10 +74,7 @@
         this.getAllPlayers();
       },
       add(player){
-        const index = this.players.indexOf(player);
         this.addToFavourites(player);
-        this.players[index].disableButton = true;
-        console.log(this.players[index]);
       }
     },
   }

@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <v-toolbar-title>FantaWiz</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
@@ -17,7 +13,6 @@
         @input="resetEnterPressed"
       ></v-text-field>
     </v-app-bar>
-
     <v-content>
       <Search :search="search" @close="resetReserch"/>
       <Favourites />
