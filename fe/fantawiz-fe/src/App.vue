@@ -13,12 +13,13 @@
         label="Cerca giocatore"
         single-line
         hide-details
+        @keypress="searchResult"
       ></v-text-field>
     </v-app-bar>
 
     <v-content>
-      <Search :headers="headers" :search="search" @close="resetReserch"/>
-      <Favourites :headers="headers"/>
+      <Search :search="search" @close="resetReserch"/>
+      <Favourites />
       <IconLegend/>
     </v-content>
     <v-footer color="primary" id="footer">
@@ -33,9 +34,6 @@
         <a target="_blank" href="https://sport.sky.it/">
           <v-img src="../src/assets/icons/logos/sky-sport.png" width="30px"></v-img>
         </a>
-        <a target="_blank" href="https://www.corrieredellosport.it/">
-          <v-img src="../src/assets/icons/logos/corriere-dello-sport.png" width="30px"></v-img>
-        </a>
       </div>
       <div>Icons made by <a target="_blank" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a target="_blank" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
       </v-footer>
@@ -46,6 +44,7 @@
 import Search from './components/Search';
 import Favourites from './components/Favourites';
 import IconLegend from './components/IconLegend';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -57,26 +56,28 @@ export default {
   },
 
   data: () => ({
-    headers: [
-      {
-        text: 'Giocatore',
-        align: 'center',
-        value: 'player'
-      },
-      { text: 'Prossima partita', value: 'prossimaPartita', filterable: false },
-      { text: 'Gazzetta', value: 'gazzetta', filterable: false },
-      { text: 'Corriere', value: 'corriere', filterable: false },
-      { text: 'Sky', value: 'sky', filterable: false },
-      { text: 'Fantacalcio', value: 'fantacalcio', filterable: false  },
-      { text: '', value: 'azione', filterable: false, sortable: false  }
-    ],
     search: '',
   }),
 
   methods: {
     resetReserch(){
       this.search = '';
-    }
+    },
+    ...mapActions([
+      'searchTerm',
+    ]),
+    ...mapMutations([
+      'clearSearchTable'
+    ]),
+    searchResult(event){
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        this.searchTerm(this.search.trim().toLowerCase());
+      }
+      if(this.search === ''){
+        this.clearSearchTable();
+      }
+    },
   }
 };
 </script>
@@ -130,4 +131,7 @@ h2{
   cursor: pointer;
 }
 
+.v-content__wrap{
+  background-color: #E8F5E9;
+}
 </style>

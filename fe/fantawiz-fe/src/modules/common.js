@@ -16,7 +16,7 @@
   };
   
   const getters = {
-  
+    
   };
   
   const mutations = {

@@ -8,7 +8,7 @@
       </div>
       <div class="icon-container d-flex align-center">
         <v-img class="margin-20" width="64px" lazy-src :src="require('../assets/icons/player-status/' + status[selectedIcon])"></v-img>
-         <p class="margin-20"><b>{{legend[selectedIcon]}}</b></p>
+        <p class="margin-20"><b>{{legend[selectedIcon]}}</b></p>
       </div>
     </v-card>
   </v-overlay>
