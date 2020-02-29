@@ -1,17 +1,27 @@
 <template>
-   <v-container v-if="players.length > 0">
-     <h2>Risultati della Ricerca per: 
-      <v-chip close color="secondary" 
-        @click:close="resetReserch"
-      >
-      {{search}}
-      </v-chip>
-    </h2>
+   <v-container>
+     <div v-if="search!==''">
+       <h2 v-if="players.length > 0">Risultati della Ricerca per: 
+        <v-chip close color="secondary" 
+          @click:close="resetReserch"
+        >
+        {{search}}
+        </v-chip>
+      </h2>
+      <div class="d-flex wrap">
+        <SearchResultPlayer :key="player.player" v-for="player in players" :player="player"/>
+      </div>
 
-    <div class="d-flex wrap">
-      <SearchResultPlayer :key="player.player" v-for="player in players" :player="player"/>
+      <h2 v-if="players.length == 0 && enterPressed">Nessun risultato trovato per:  
+        <v-chip close color="secondary" 
+          @click:close="resetReserch"
+        >
+        {{search}}
+        </v-chip>
+      </h2>
     </div>
   </v-container>
+  
 </template>
 
 <script>
@@ -39,6 +49,7 @@
         status: state => state.common.status,
         selectedIcon: state => state.common.selectedIcon,
         loading: state => state.players.loading,
+        enterPressed: state => state.players.enterPressed,
       })
     },
     methods: {

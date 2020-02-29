@@ -30,7 +30,8 @@ const state = {
     },
   ],
   filteredPlayers: [  ],
-  myPlayers: [ ]
+  myPlayers: [ ],
+  enterPressed: false,
 };
 
 const getters = {
@@ -61,25 +62,20 @@ const actions = {
     }
   },
   searchTerm({ state, commit }, search){
-    //search if the element already exists in the filtered array of players (someone could hit enter more than once)
-    let found = false, i;
-    commit('clearSearchTable');
-    for(i=0; i<state.filteredPlayers.length && !found; i++){
-      if(state.filteredPlayers[i].player.toLowerCase().includes(search)){
-        found = true;
-      }
-    }
+    state.enterPressed = true;
 
-    //if it doesn't exists
-    if(!found){
-      //scan all players array
-      for(i=0; i<state.players.length; i++){
-        if(state.players[i].player.toLowerCase().includes(search)){
-          let player = state.players[i];
-          state.filteredPlayers.push(player);
-        }
+    commit('clearSearchTable');
+    for(let i=0; i<state.players.length; i++){
+      if(state.players[i].player.toLowerCase().includes(search)){
+        let player = state.players[i];
+        state.filteredPlayers.push(player);
+        state.enterPressed = false;
       }
     }
+  },
+  resetEnterPressed({ state }, search){
+    if(search === '')
+      state.enterPressed = false;
   }
 };
 

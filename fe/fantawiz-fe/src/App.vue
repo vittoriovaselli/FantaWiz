@@ -14,6 +14,7 @@
         single-line
         hide-details
         @keypress="searchResult"
+        @input="resetEnterPressed"
       ></v-text-field>
     </v-app-bar>
 
@@ -65,17 +66,19 @@ export default {
     },
     ...mapActions([
       'searchTerm',
+      'resetEnterPressed'
     ]),
     ...mapMutations([
       'clearSearchTable'
     ]),
     searchResult(event){
+      if(this.search === ''){
+        this.clearSearchTable();
+        this.$forceUpdate();
+      }
       if (event.keyCode === 13) {
         event.preventDefault();
         this.searchTerm(this.search.trim().toLowerCase());
-      }
-      if(this.search === ''){
-        this.clearSearchTable();
       }
     },
   }
