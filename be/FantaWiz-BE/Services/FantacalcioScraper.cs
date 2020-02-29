@@ -156,7 +156,7 @@ namespace FantaWizBE.Services
             return pageDocument
                 .DocumentNode
                 .SelectNodes("//h3[contains(@class,'txtbb m0 nopad team-name')]")
-                .Select(x => x.InnerText)
+                .Select(x => x.InnerText.ToUpper())
                 .ToArray();        
         }
     }

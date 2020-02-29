@@ -170,7 +170,7 @@ namespace FantaWizBE.Services
             return pageDocument
                 .DocumentNode
                 .SelectNodes("(//div[contains(@class,'matchFieldContainer')])//a[contains(@class,'is--gainsboro')]")
-                .Select(x => x.InnerText)
+                .Select(x => x.InnerText.ToUpper())
                 .ToArray();
         }
 
