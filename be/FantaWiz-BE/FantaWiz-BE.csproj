@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <Target Name="client-app" BeforeTargets="ComputeFilesToPublish">
-    <Exec Command="npm install" WorkingDirectory="client-app"></Exec>
-    <Exec Command="npm run build" WorkingDirectory="client-app"></Exec>
+    <Exec Command="npm install" WorkingDirectory="../../fe/fantawiz-fe"></Exec>
+    <Exec Command="npm run build" WorkingDirectory="../../fe/fantawiz-fe"></Exec>
   </Target>
 
 
