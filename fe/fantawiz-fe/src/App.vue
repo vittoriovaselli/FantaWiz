@@ -13,7 +13,15 @@
         @input="resetEnterPressed"
       ></v-text-field>
     </v-app-bar>
-    <v-content>
+    <v-content v-if="loading">
+      <div class="d-flex align-center justify-center entire-height">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
+    </v-content>
+    <v-content v-else>
       <Search :search="search" @close="resetReserch"/>
       <Favourites />
       <IconLegend/>
@@ -28,7 +36,7 @@ import Favourites from './components/Favourites';
 import IconLegend from './components/IconLegend';
 import CustomFooter from './components/CustomFooter';
 
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'App',
@@ -43,7 +51,11 @@ export default {
   data: () => ({
     search: '',
   }),
-
+  computed: {
+    ...mapState({
+      loading: state => state.players.loading
+    })
+  },
   methods: {
     resetReserch(){
       this.search = '';
@@ -74,6 +86,9 @@ export default {
 </script>
 
 <style>
+.entire-height{
+  height: 100%;
+}
 
 h2{
   margin-bottom: 20px;

@@ -1,91 +1,11 @@
 import getAllPlayers from '../api/api';
 
 const state = {
-  players: [
-    // {
-    //   name: 'Petagna',
-    //   team: 'spal',
-    //   versus: 'juve',
-    //   status: [
-    //     {
-    //       source: 0,
-    //       playerStatus: 0,
-    //     },
-    //     {
-    //       source: 1,
-    //       playerStatus: 0
-    //     },
-    //     {
-    //       source: 2,
-    //       playerStatus: 0
-    //     }
-    //   ],
-    //   isHome: true
-    // },
-    // {
-    //   name: 'Ronaldo',
-    //   team: 'juve',
-    //   versus: 'spal',
-    //   status: [
-    //     {
-    //       source: 0,
-    //       playerStatus: 0,
-    //     },
-    //     {
-    //       source: 1,
-    //       playerStatus: 0
-    //     },
-    //     {
-    //       source: 2,
-    //       playerStatus: 1
-    //     }
-    //   ],
-    //   isHome: false
-    // },
-    // {
-    //   name: 'Gomez',
-    //   team: 'Atalanta',
-    //   versus: 'Sampdoria',
-    //   status: [
-    //     {
-    //       source: 0,
-    //       playerStatus: 3,
-    //     },
-    //     {
-    //       source: 1,
-    //       playerStatus: 3
-    //     },
-    //     {
-    //       source: 2,
-    //       playerStatus: 3
-    //     }
-    //   ],
-    //   isHome: true
-    // },
-    // {
-    //   name: 'Zaniolo',
-    //   team: 'roma',
-    //   versus: 'fiorentina',
-    //   status: [
-    //     {
-    //       source: 0,
-    //       playerStatus: 2,
-    //     },
-    //     {
-    //       source: 1,
-    //       playerStatus: 2
-    //     },
-    //     {
-    //       source: 2,
-    //       playerStatus: 2
-    //     }
-    //   ],
-    //   isHome: false
-    // }
-  ],
+  players: [ ],
   filteredPlayers: [  ],
   myPlayers: [ ],
   enterPressed: false,
+  loading: false
 };
 
 const getters = {
@@ -132,10 +52,13 @@ const actions = {
       state.enterPressed = false;
   },
   getAllPlayersFromApi({state}){
+    state.loading = true;
     getAllPlayers().then((response)=>{
       state.players = [...response];
+      state.loading = false;
     }).catch(error => {
       console.log(error);
+      state.loading = false;
     })
   }
 };
