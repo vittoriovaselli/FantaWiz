@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FantaWizBE.Models;
 using FantaWizBE.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace FantaWiz_BE.Controllers
 {
@@ -14,53 +16,48 @@ namespace FantaWiz_BE.Controllers
     public class ValuesController : ControllerBase
     {
         private IHttpClientFactory _httpClientFactory;
+        private IMemoryCache _cache;
+        private const string cachePlayersKey = "PLAYERS"; 
 
-        public ValuesController(IHttpClientFactory httpClientFactory)
+        public ValuesController(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache)
         {
             _httpClientFactory = httpClientFactory;
+            _cache = memoryCache;
         }
 
         // GET api/values
         [HttpGet]
         public async Task<IEnumerable<Player>> Get()
         {
-            var players = new HashSet<Player>(new PlayersComparer());
+            //check cache
+            if (!_cache.TryGetValue(cachePlayersKey, out HashSet<Player> players))
+            {
+                Debug.WriteLine("scraping");
+                players = new HashSet<Player>(new PlayersComparer());
 
-            var gazzettaScraper = new GazzettaScraper(players);
-            players = await gazzettaScraper.Get(_httpClientFactory);
+                //if not found in cache scrape values
+                var gazzettaScraper = new GazzettaScraper(players);
+                players = await gazzettaScraper.Get(_httpClientFactory);
 
-            var fantacalcioScraper = new FantacalcioScraper(players);
-            players = await fantacalcioScraper.Get(_httpClientFactory);
+                var fantacalcioScraper = new FantacalcioScraper(players);
+                players = await fantacalcioScraper.Get(_httpClientFactory);
 
-            var skyScraper = new SkyScraper(players);
-            players = await skyScraper.Get(_httpClientFactory);
+                var skyScraper = new SkyScraper(players);
+                players = await skyScraper.Get(_httpClientFactory);
+
+                //cache options
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10));
+
+                //save data in cache
+                _cache.Set(cachePlayersKey, players, cacheOptions);
+            }
+
+            Debug.WriteLine("got from cache");
+
+
 
             return players;
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

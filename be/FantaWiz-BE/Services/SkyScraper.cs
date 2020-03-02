@@ -59,7 +59,6 @@ namespace FantaWizBE.Services
                     .ForEach(x => AddPlayer(teams, teamIndex, x.ToUpper().Trim(), PlayerStatus.Disqualified));
 
                 //injured
-                Debug.WriteLine("injured:");
                 array[3]
                     .Split(',')
                     .Where(x => !String.Equals('-', x))
