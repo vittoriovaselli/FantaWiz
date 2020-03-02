@@ -41,6 +41,8 @@ namespace FantaWiz_BE
                 app.UseHsts();
             }
 
+            app.UseFileServer();
+
             app.UseHttpsRedirection();
             app.UseMvc();
             
