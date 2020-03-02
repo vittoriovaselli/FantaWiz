@@ -59,8 +59,6 @@ namespace FantaWizBE.Services
             //get away teams injured
             GetInjuredPlayers(teams, 1, awayData);
 
-            Console.WriteLine("");
-
             CheckErrors();
 
             return _players;

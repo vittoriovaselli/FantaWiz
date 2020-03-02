@@ -32,7 +32,6 @@ namespace FantaWiz_BE.Controllers
             //check cache
             if (!_cache.TryGetValue(cachePlayersKey, out HashSet<Player> players))
             {
-                Debug.WriteLine("scraping");
                 players = new HashSet<Player>(new PlayersComparer());
 
                 //if not found in cache scrape values
@@ -52,10 +51,6 @@ namespace FantaWiz_BE.Controllers
                 //save data in cache
                 _cache.Set(cachePlayersKey, players, cacheOptions);
             }
-
-            Debug.WriteLine("got from cache");
-
-
 
             return players;
         }
