@@ -50,7 +50,8 @@ export default {
     },
     ...mapActions([
       'searchTerm',
-      'resetEnterPressed'
+      'resetEnterPressed',
+      'getAllPlayersFromApi'
     ]),
     ...mapMutations([
       'clearSearchTable'
@@ -65,6 +66,9 @@ export default {
         this.searchTerm(this.search.trim().toLowerCase());
       }
     },
+  },
+  created(){
+    this.getAllPlayersFromApi();
   }
 };
 </script>

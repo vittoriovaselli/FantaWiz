@@ -1,85 +1,87 @@
+import getAllPlayers from '../api/api';
+
 const state = {
   players: [
-    {
-      name: 'Petagna',
-      team: 'spal',
-      versus: 'juve',
-      status: [
-        {
-          source: 0,
-          playerStatus: 0,
-        },
-        {
-          source: 1,
-          playerStatus: 0
-        },
-        {
-          source: 2,
-          playerStatus: 0
-        }
-      ],
-      isHome: true
-    },
-    {
-      name: 'Ronaldo',
-      team: 'juve',
-      versus: 'spal',
-      status: [
-        {
-          source: 0,
-          playerStatus: 0,
-        },
-        {
-          source: 1,
-          playerStatus: 0
-        },
-        {
-          source: 2,
-          playerStatus: 1
-        }
-      ],
-      isHome: false
-    },
-    {
-      name: 'Gomez',
-      team: 'Atalanta',
-      versus: 'Sampdoria',
-      status: [
-        {
-          source: 0,
-          playerStatus: 3,
-        },
-        {
-          source: 1,
-          playerStatus: 3
-        },
-        {
-          source: 2,
-          playerStatus: 3
-        }
-      ],
-      isHome: true
-    },
-    {
-      name: 'Zaniolo',
-      team: 'roma',
-      versus: 'fiorentina',
-      status: [
-        {
-          source: 0,
-          playerStatus: 2,
-        },
-        {
-          source: 1,
-          playerStatus: 2
-        },
-        {
-          source: 2,
-          playerStatus: 2
-        }
-      ],
-      isHome: false
-    }
+    // {
+    //   name: 'Petagna',
+    //   team: 'spal',
+    //   versus: 'juve',
+    //   status: [
+    //     {
+    //       source: 0,
+    //       playerStatus: 0,
+    //     },
+    //     {
+    //       source: 1,
+    //       playerStatus: 0
+    //     },
+    //     {
+    //       source: 2,
+    //       playerStatus: 0
+    //     }
+    //   ],
+    //   isHome: true
+    // },
+    // {
+    //   name: 'Ronaldo',
+    //   team: 'juve',
+    //   versus: 'spal',
+    //   status: [
+    //     {
+    //       source: 0,
+    //       playerStatus: 0,
+    //     },
+    //     {
+    //       source: 1,
+    //       playerStatus: 0
+    //     },
+    //     {
+    //       source: 2,
+    //       playerStatus: 1
+    //     }
+    //   ],
+    //   isHome: false
+    // },
+    // {
+    //   name: 'Gomez',
+    //   team: 'Atalanta',
+    //   versus: 'Sampdoria',
+    //   status: [
+    //     {
+    //       source: 0,
+    //       playerStatus: 3,
+    //     },
+    //     {
+    //       source: 1,
+    //       playerStatus: 3
+    //     },
+    //     {
+    //       source: 2,
+    //       playerStatus: 3
+    //     }
+    //   ],
+    //   isHome: true
+    // },
+    // {
+    //   name: 'Zaniolo',
+    //   team: 'roma',
+    //   versus: 'fiorentina',
+    //   status: [
+    //     {
+    //       source: 0,
+    //       playerStatus: 2,
+    //     },
+    //     {
+    //       source: 1,
+    //       playerStatus: 2
+    //     },
+    //     {
+    //       source: 2,
+    //       playerStatus: 2
+    //     }
+    //   ],
+    //   isHome: false
+    // }
   ],
   filteredPlayers: [  ],
   myPlayers: [ ],
@@ -128,6 +130,13 @@ const actions = {
   resetEnterPressed({ state }, search){
     if(search === '')
       state.enterPressed = false;
+  },
+  getAllPlayersFromApi({state}){
+    getAllPlayers().then((response)=>{
+      state.players = [...response];
+    }).catch(error => {
+      console.log(error);
+    })
   }
 };
 
