@@ -106,4 +106,8 @@ h2{
 .v-content__wrap{
   background-color: #E8F5E9;
 }
+
+.v-application--is-ltr .v-list-item__avatar{
+    margin: 0 !important;
+  }
 </style>
