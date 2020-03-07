@@ -111,4 +111,8 @@ h2{
 .v-application--is-ltr .v-list-item__avatar{
   margin: 0 !important;
 }
+
+.v-application--wrap{
+  overflow-x: hidden;
+}
 </style>
