@@ -56,6 +56,7 @@ const actions = {
     getAllPlayers().then((response)=>{
       state.players = [...response];
       state.loading = false;
+      console.log(response);
     }).catch(error => {
       console.log(error);
       state.loading = false;

@@ -1,15 +1,17 @@
   const state = {
     status: [
+      'error.svg',
       'football-field.svg',
       'bench.svg',
       'cross.svg',
       'red-card.svg'
     ],
     legend: {
-      0: "Titolare",
-      1: "Riserva",
-      2: "Infortunato",
-      3: "Squalificato"
+      0: "Informazione non disponibile. Riprova più tardi.",
+      1: "Titolare",
+      2: "Riserva",
+      3: "Infortunato",
+      4: "Squalificato"
     },
     selectedIcon: null,
     overlay: false

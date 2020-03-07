@@ -105,5 +105,14 @@ h2{
 
 .v-content__wrap{
   background-color: #E8F5E9;
+  min-height: 100vh;
+}
+
+.v-application--is-ltr .v-list-item__avatar{
+  margin: 0 !important;
+}
+
+.v-application--wrap{
+  overflow-x: hidden;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="container">
     <h2>I miei giocatori</h2>
     <div class="d-flex wrap" v-if="players.length > 0">
       <Player :key="player.player" v-for="player in players" :player="player"/>
@@ -7,7 +7,7 @@
     <div v-else class="d-flex wrap empty-favourites">
       <h4>Non ci sono giocatori nei preferiti, cerca un giocatore per iniziare.</h4>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -57,7 +57,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .v-image{
     margin: 10px 0 !important;
   }
@@ -72,8 +72,11 @@ export default {
   }
 
   .empty-favourites{
-    height: 70vh;
+    display: flex;
     align-items: center;
     text-align: center;
+    h4{
+      margin: 100px 0;
+    }
   }
 </style>
