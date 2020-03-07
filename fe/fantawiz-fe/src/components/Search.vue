@@ -9,7 +9,7 @@
         </v-chip>
       </h2>
       <div class="d-flex wrap">
-        <SearchResultPlayer :key="player.name + player.team + player.status[0].playerStatus" v-for="player in players" :player="player"/>
+        <SearchResultPlayer :key="player.name + player.team + player.status[0]" v-for="player in players" :player="player"/>
       </div>
 
       <h2 v-if="players.length == 0 && enterPressed">Nessun risultato trovato per:  
@@ -36,12 +36,7 @@
     ],
     components: {
       SearchResultPlayer
-    },
-
-    data: () => ({
-
-    }),
-    
+    },    
     computed: {
       ...mapState({
         players: state => state.players.filteredPlayers,

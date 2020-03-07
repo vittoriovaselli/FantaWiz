@@ -7,7 +7,7 @@
         <v-btn x-small text fab color="primary" @click="toggleOverlay"><v-icon>mdi-close</v-icon></v-btn>
       </div>
       <div class="icon-container d-flex align-center">
-        <v-img class="margin-20" width="64px" lazy-src :src="require('../assets/icons/player-status/' + status[selectedIcon])"></v-img>
+        <v-img class="margin-20" width="64px" lazy-src :src="require('../assets/player-status/' + status[selectedIcon])"></v-img>
         <p class="margin-20"><b>{{legend[selectedIcon]}}</b></p>
       </div>
     </v-card>

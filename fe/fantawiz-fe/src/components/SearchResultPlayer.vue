@@ -8,19 +8,19 @@
       <v-list-item>
         <v-card-subtitle>Gazzetta</v-card-subtitle>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.status[0].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[0].playerStatus])"></v-img>
+          <v-img @click="openLegend(player.status[0]+1)" class="margin-20" width="48px" lazy-src :src="require('../assets/player-status/' + status[player.status[0]+1])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
       <v-list-item>
         <v-card-subtitle>Sky</v-card-subtitle>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.status[1].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[1].playerStatus])"></v-img>
+          <v-img @click="openLegend(player.status[1]+1)" class="margin-20" width="48px" lazy-src :src="require('../assets/player-status/' + status[player.status[1]+1])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
       <v-list-item>
         <v-card-subtitle>Fantacalcio</v-card-subtitle>
         <v-list-item-avatar>
-          <v-img @click="openLegend(player.status[2].playerStatus)" class="margin-20" width="48px" lazy-src :src="require('../assets/icons/player-status/' + status[player.status[2].playerStatus])"></v-img>
+          <v-img @click="openLegend(player.status[2]+1)" class="margin-20" width="48px" lazy-src :src="require('../assets/player-status/' + status[player.status[2]+1])"></v-img>
         </v-list-item-avatar>
       </v-list-item>
     </v-list>
