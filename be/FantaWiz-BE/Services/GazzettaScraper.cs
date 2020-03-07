@@ -59,8 +59,6 @@ namespace FantaWizBE.Services
             //get away teams injured
             GetInjuredPlayers(teams, 1, awayData);
 
-            CheckErrors();
-
             return _players;
         }               
 
@@ -148,14 +146,23 @@ namespace FantaWizBE.Services
             int teamIndex = 0;
             foreach (var teamPlayer in teamPlayers)
             {
-                var names = teamPlayer
+                try
+                {
+                    var names = teamPlayer
                     .SelectNodes("(.//span[contains(@class, 'team-player')])")
                     .Select(x => x.InnerText)
                     .ToArray();
-                foreach(var name in names)
-                {
-                    AddPlayer(teams, teamIndex, name, PlayerStatus.Starting);
+                    foreach (var name in names)
+                    {
+                        AddPlayer(teams, teamIndex, name, PlayerStatus.Starting);
+                    }
                 }
+                catch(Exception e)
+                {
+                   
+                    Console.WriteLine(e.Message);
+                }
+                
                
                 teamIndex++;
             }
