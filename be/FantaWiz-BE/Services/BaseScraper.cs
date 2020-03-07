@@ -44,32 +44,20 @@ namespace FantaWizBE.Services
                 name = name.Replace("’", "'");
             }
 
-
-
             Player player = new Player
             {
                 Name = name,
                 IsHome = teamIndex % 2 == 0,
                 Team = teams[teamIndex],
                 Versus = TeamVersus(teams, teamIndex),
-                Status = new List<Status>()
-                {
-                    new Status{
-                        PlayerStatus = playerStatus,
-                        Source = _source
-                    }
-                }
             };
+            player.Status[(int)_source] = playerStatus;
 
             if (_players.Contains(player))
             {
                 _players.TryGetValue(player, out Player selectedPlayer);
 
-                selectedPlayer.Status.Add(new Status
-                {
-                    PlayerStatus = playerStatus,
-                    Source = _source
-                });
+                selectedPlayer.Status[(int)_source] = playerStatus;
             }
             else
             {
@@ -96,16 +84,5 @@ namespace FantaWizBE.Services
                 pageDocument.LoadHtml(htmlContent);
             }
         }
-
-        internal void CheckErrors()
-        {
-            //if a player has more than "number of sources" statuses there is an error
-            //remove all players from dictionary
-            if (_players.FirstOrDefault().Status.Count > Enum.GetValues(typeof(Source)).Length)
-            {
-                _players =  new HashSet<Player>();
-            }
-        }
-
     }
 }
